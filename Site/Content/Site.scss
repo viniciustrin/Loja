@@ -1,0 +1,154 @@
+﻿$color-red: #ff4342;
+$color-white: #fff;
+
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    font-size: 17px;
+}
+
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/*override bootstrap*/
+
+.navbar-inverse {
+    background-color: $color-red;
+    border-color: $color-red;
+
+    .navbar-nav li a {
+        color: $color-white;
+    }
+
+    .navbar-brand {
+        color: $color-white;
+        font-weight: 700;
+    }
+}
+
+.navbar-inverse .navbar-nav > .dropdown > a .caret {
+    border-top-color: $color-white;
+    border-bottom-color: $color-white;
+}
+
+.caret {
+    border-top-color: $color-white;
+    border-bottom-color: $color-white;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-control {
+    font-size: 14px;
+    border-radius: 9px;
+
+    &:focus {
+        border-color: #2196f3;
+        box-shadow: none;
+        -webkit-box-shadow: none;
+        color: black !important;
+    }
+}
+
+.btn {
+    font-size: 17px;
+    padding: 7px 20px;
+    border-radius: 9px;
+}
+
+.dropdown-menu {
+    li {
+        a {
+            display: block;
+            padding: 3px 20px;
+            clear: both;
+            font-weight: normal;
+            line-height: 1.428571429;
+            color: #333333 !important;
+            white-space: nowrap;
+        }
+    }
+}
+
+.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
+    background-color: rgba(205,40,39,0.55)
+}
+
+
+/*paginas*/
+#agenda {
+    list-style: none;
+
+    li {
+        position: relative;
+        margin-bottom: 30px;
+
+        .details {
+            position: absolute;
+            top: 0px;
+            left: 70px;
+
+            .medico {
+                font-weight: bold;
+                display: block;
+            }
+
+            .paciente {
+                font-size: 15px;
+                display: block;
+            }
+
+            .usuario {
+                font-size: 15px;
+            }
+        }
+
+        .date {
+            background-color: red;
+            color: $color-white;
+            text-align: center;
+            width: 60px;
+            border-radius: 8px;
+
+            .month {
+                text-transform: uppercase;
+                font-size: 14px;
+                font-weight: bold;
+                padding: 2px 6px;
+            }
+
+            .day {
+                background: #f7f7f7;
+                color: #333;
+                font-size: 20px;
+                padding: 6px 12px;
+            }
+
+            .hour {
+                background: #f7f7f7;
+                color: #333;
+                font-size: 16px;
+                padding: 0px 12px;
+            }
+        }
+
+        .action {
+            font-size: 15px;
+        }
+    }
+}

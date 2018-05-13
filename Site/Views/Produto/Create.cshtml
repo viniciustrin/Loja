@@ -1,0 +1,106 @@
+﻿@model Site.ViewModels.ProdutoViewModel
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Heading</h2>
+@using (Html.BeginForm(Model.Action, "Produto"))
+{
+    @Html.HiddenFor(m => m.Id)
+    <div class="form-group">
+        @Html.LabelFor(m => m.Nome)
+        @Html.TextBoxFor(m => m.Nome, new { @class = "form-control", autofocus = "autofocus" })
+        @Html.ValidationMessageFor(m => m.Nome)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Desc)
+        @Html.TextBoxFor(m => m.Desc, new { @class = "form-control", autofocus = "autofocus" })
+        @Html.ValidationMessageFor(m => m.Desc)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Preco)
+        @Html.TextBoxFor(m => m.Preco, new { @class = "form-control", autofocus = "autofocus" })
+        @Html.ValidationMessageFor(m => m.Preco)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.PrecoPromo)
+        @Html.TextBoxFor(m => m.PrecoPromo, new { @class = "form-control", autofocus = "autofocus" })
+        @Html.ValidationMessageFor(m => m.PrecoPromo)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Categorias)
+        @Html.DropDownListFor(m => m.CategoriaId, new SelectList(Model.Categorias, "Id", "Nome"), "", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.CategoriaId)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Ativo)
+        @Html.DropDownListFor(m => m.Ativo, (new[] { new SelectListItem { Text = "Inativo", Value = "false" }, new SelectListItem { Text = "Ativo", Value = "true" } }), new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Ativo)
+    </div>
+    <button type="submit" class="btn btn-primary">@Model.Botao</button>
+}
+
+</br>
+
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">Produtos</div>
+    <!-- Table -->
+    <table class="table">
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>Nome</td>
+                <td>Ativo</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var produto in Model.Produtos)
+            {
+                <tr>
+                    <td>@produto.Id</td>
+                    <td>@produto.Nome</td>
+                    @if (produto.Ativo == true)
+                    {
+                        <td>Sim</td>
+                    }
+                    else
+                    {
+                        <td>Não</td>
+                    }
+
+                    <td><a href="@Url.Action("Edit","Produto", new { id = produto.Id } )">Editar</a></td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+</div>
+
+@section scripts{
+
+    <script>
+        $(document).ready(function () {
+            $(".js-cancel").click(function (e) {
+                var link = $(e.target);
+                if (confirm("Deseja mesmo cancelar?")) {
+                    $.ajax({
+                        url: "/api/Medico/" + link.attr("data-id"),
+                        method: "DELETE"
+                    }).done(function () {
+                        link.parents("tr").fadeOut(function () {
+                            $(this).remove();
+                        });
+                    })
+                        .fail(function () {
+                            alert("Ocorreu um erro");
+                        });
+                }
+            });
+        });
+
+
+    </script>
+
+}

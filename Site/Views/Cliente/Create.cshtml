@@ -1,0 +1,78 @@
+﻿@model Site.ViewModels.ClienteViewModel
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Heading</h2>
+@using (Html.BeginForm(Model.Action, "Cliente"))
+{
+    @Html.HiddenFor(m => m.Id)
+    <div class="form-group">
+        @Html.LabelFor(m => m.Nome)
+        @Html.TextBoxFor(m => m.Nome, new { @class = "form-control", autofocus = "autofocus" })
+        @Html.ValidationMessageFor(m => m.Nome)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Email)
+        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Email)
+    </div>
+    <button type="submit" class="btn btn-primary">@Model.Botao</button>
+}
+
+</br>
+
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">Clientes</div>
+    <!-- Table -->
+    <table class="table">
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>Nome</td>
+                <td>Email</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var cliente in Model.Clientes)
+            {
+                <tr>
+                    <td>@cliente.Id</td>
+                    <td>@cliente.Nome</td>
+                    <td>@cliente.Email</td>
+                    <td><a href="@Url.Action("Edit","Cliente", new { id = cliente.Id } )">Editar</a>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+</div>
+
+@section scripts{
+
+    <script>
+        $(document).ready(function () {
+            $(".js-cancel").click(function (e) {
+                var link = $(e.target);
+                if (confirm("Deseja mesmo cancelar?")) {
+                    $.ajax({
+                        url: "/api/Cliente/" + link.attr("data-id"),
+                        method: "DELETE"
+                    }).done(function () {
+                        link.parents("tr").fadeOut(function () {
+                            $(this).remove();
+                        });
+                    })
+                        .fail(function () {
+                            alert("Ocorreu um erro");
+                        });
+                }
+            });
+        });
+
+
+    </script>
+
+}

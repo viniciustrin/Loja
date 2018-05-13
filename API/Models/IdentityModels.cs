@@ -26,6 +26,8 @@ namespace API.Models
         public DbSet<Pedido> Pedido { get; set; }
         public DbSet<PedidoItens> PedidoItens { get; set; }
         public DbSet<Produto> Produto { get; set; }
+        public DbSet<Categoria> Categoria { get; set; }
+        public DbSet<ProdutoCategoria> ProdutoCategoria { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

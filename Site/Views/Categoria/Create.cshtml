@@ -1,0 +1,86 @@
+﻿@model Site.ViewModels.CategoriaViewModel
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Heading</h2>
+@using (Html.BeginForm(Model.Action, "Categoria"))
+{
+    @Html.HiddenFor(m => m.Id)
+    <div class="form-group">
+        @Html.LabelFor(m => m.Nome)
+        @Html.TextBoxFor(m => m.Nome, new { @class = "form-control", autofocus = "autofocus" })
+        @Html.ValidationMessageFor(m => m.Nome)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Ativo)
+        @Html.DropDownListFor(m => m.Ativo, (new[] { new SelectListItem { Text = "Ativo", Value = "true" }, new SelectListItem { Text = "Inativo", Value = "false" } }), new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Ativo)
+    </div>
+    <button type="submit" class="btn btn-primary">@Model.Botao</button>
+}
+
+</br>
+
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">Categorias</div>
+    <!-- Table -->
+    <table class="table">
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>Nome</td>
+                <td>Ativo</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var categoria in Model.Categorias)
+            {
+                <tr>
+                    <td>@categoria.Id</td>
+                    <td>@categoria.Nome</td>
+                    @if(categoria.Ativo == true)
+                        {
+                            <td>Sim</td>
+                        }
+                        else
+                        {
+                            <td>Não</td>
+                        }
+                    
+                    <td><a href="@Url.Action("Edit","Categoria", new { id = categoria.Id } )">Editar</a></td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+</div>
+
+@section scripts{
+
+    <script>
+        $(document).ready(function () {
+            $(".js-cancel").click(function (e) {
+                var link = $(e.target);
+                if (confirm("Deseja mesmo cancelar?")) {
+                    $.ajax({
+                        url: "/api/Medico/" + link.attr("data-id"),
+                        method: "DELETE"
+                    }).done(function () {
+                        link.parents("tr").fadeOut(function () {
+                            $(this).remove();
+                        });
+                    })
+                        .fail(function () {
+                            alert("Ocorreu um erro");
+                        });
+                }
+            });
+        });
+
+
+    </script>
+
+}
