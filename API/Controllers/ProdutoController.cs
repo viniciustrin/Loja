@@ -1,5 +1,4 @@
 ﻿using API.Models;
-using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Linq;
@@ -9,16 +8,14 @@ using System.Web.Http;
 
 namespace API.Controllers
 {
-
     [Authorize]
-    public class ClienteController : BaseController
+    public class ProdutoController : BaseController
     {
-
         public HttpResponseMessage Get()
         {
             try
             {
-                var lista = _context.Clientes.ToList();
+                var lista = _context.Produtos.ToList();
                 return Request.CreateResponse(HttpStatusCode.OK, lista);
             }
             catch (DbEntityValidationException ex)
@@ -26,17 +23,15 @@ namespace API.Controllers
                 HttpError err = new HttpError(ex.Message);
                 return Request.CreateResponse(HttpStatusCode.BadRequest, err);
             }
-            
+
         }
 
-
         [HttpPost]
-        public HttpResponseMessage Post([FromBody] Cliente cli)
-        {
-            cli.DataCadastro = DateTime.Now;
+        public HttpResponseMessage Post([FromBody] Produto produto)
+        {            
             try
             {
-                _context.Clientes.Add(cli);
+                _context.Produtos.Add(produto);
                 _context.SaveChanges();
             }
             catch (DbEntityValidationException ex)
@@ -54,7 +49,8 @@ namespace API.Controllers
 
                 return Request.CreateResponse(HttpStatusCode.BadRequest, validationErrors);
             }
-            return Request.CreateResponse(HttpStatusCode.OK, cli);
+            return Request.CreateResponse(HttpStatusCode.OK, produto);
         }
+
     }
 }
