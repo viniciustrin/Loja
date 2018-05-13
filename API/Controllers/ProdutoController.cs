@@ -15,7 +15,7 @@ namespace API.Controllers
         {
             try
             {
-                var lista = _context.Produtos.ToList();
+                var lista = _context.Produto.ToList();
                 return Request.CreateResponse(HttpStatusCode.OK, lista);
             }
             catch (DbEntityValidationException ex)
@@ -31,7 +31,7 @@ namespace API.Controllers
         {            
             try
             {
-                _context.Produtos.Add(produto);
+                _context.Produto.Add(produto);
                 _context.SaveChanges();
             }
             catch (DbEntityValidationException ex)

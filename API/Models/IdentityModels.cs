@@ -20,12 +20,12 @@ namespace API.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public DbSet<Cliente> Clientes { get; set; }
-        public DbSet<Carrinho> Carrinhos { get; set; }
-        public DbSet<CarrinhoItens> CarrinhosItens { get; set; }
-        public DbSet<Pedido> Pedidos { get; set; }
-        public DbSet<PedidoItens> PedidosItens { get; set; }
-        public DbSet<Produto> Produtos { get; set; }
+        public DbSet<Cliente> Cliente { get; set; }
+        public DbSet<Carrinho> Carrinho { get; set; }
+        public DbSet<CarrinhoItens> CarrinhoItens { get; set; }
+        public DbSet<Pedido> Pedido { get; set; }
+        public DbSet<PedidoItens> PedidoItens { get; set; }
+        public DbSet<Produto> Produto { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
@@ -35,10 +35,10 @@ namespace API.Models
         {
             return new ApplicationDbContext();
         }
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<PedidoItens>().HasRequired(a => a.Produto).WithMany().WillCascadeOnDelete(false);
-            base.OnModelCreating(modelBuilder);
-        }
+        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<PedidoItens>().HasRequired(a => a.Produto).WithMany().WillCascadeOnDelete(false);
+        //    base.OnModelCreating(modelBuilder);
+        //}
     }
 }

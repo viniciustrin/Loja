@@ -15,7 +15,7 @@ namespace API.Controllers
         {
             try
             {
-                var lista = _context.Carrinhos.ToList();
+                var lista = _context.Carrinho.ToList();
                 return Request.CreateResponse(HttpStatusCode.OK, lista);
             }
             catch (DbEntityValidationException ex)
@@ -30,8 +30,7 @@ namespace API.Controllers
         public HttpResponseMessage Post([FromBody] Carrinho carrinho)
         {
 
-            //var cliente = _context.Clientes.Single(x => x.Id == carrinho.ClienteId);
-            var cliente = _context.Clientes.Find(carrinho.ClienteId);
+            var cliente = _context.Cliente.Find(carrinho.ClienteId);
 
             if (cliente == null)
             {
@@ -43,7 +42,7 @@ namespace API.Controllers
 
             try
             {
-                _context.Carrinhos.Add(carrinho);
+                _context.Carrinho.Add(carrinho);
                 _context.SaveChanges();
             }
             catch (Exception ex)

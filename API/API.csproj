@@ -236,29 +236,12 @@
     <Compile Include="Controllers\PedidoController.cs" />
     <Compile Include="Controllers\ProdutoController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
-    <Compile Include="DTO\CarrinhoItensDTO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201805120309254_InitialCreate.cs" />
-    <Compile Include="Migrations\201805120309254_InitialCreate.Designer.cs">
-      <DependentUpon>201805120309254_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805121335284_CriacaoCliente.cs" />
-    <Compile Include="Migrations\201805121335284_CriacaoCliente.Designer.cs">
-      <DependentUpon>201805121335284_CriacaoCliente.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805121844273_ApiModels.cs" />
-    <Compile Include="Migrations\201805121844273_ApiModels.Designer.cs">
-      <DependentUpon>201805121844273_ApiModels.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805122228081_CorrecaoPedido.cs" />
-    <Compile Include="Migrations\201805122228081_CorrecaoPedido.Designer.cs">
-      <DependentUpon>201805122228081_CorrecaoPedido.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201805130032024_CorrecaoPedido1.cs" />
-    <Compile Include="Migrations\201805130032024_CorrecaoPedido1.Designer.cs">
-      <DependentUpon>201805130032024_CorrecaoPedido1.cs</DependentUpon>
+    <Compile Include="Migrations\201805130333253_ApiModels.cs" />
+    <Compile Include="Migrations\201805130333253_ApiModels.Designer.cs">
+      <DependentUpon>201805130333253_ApiModels.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
@@ -349,20 +332,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201805120309254_InitialCreate.resx">
-      <DependentUpon>201805120309254_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805121335284_CriacaoCliente.resx">
-      <DependentUpon>201805121335284_CriacaoCliente.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805121844273_ApiModels.resx">
-      <DependentUpon>201805121844273_ApiModels.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805122228081_CorrecaoPedido.resx">
-      <DependentUpon>201805122228081_CorrecaoPedido.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201805130032024_CorrecaoPedido1.resx">
-      <DependentUpon>201805130032024_CorrecaoPedido1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201805130333253_ApiModels.resx">
+      <DependentUpon>201805130333253_ApiModels.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

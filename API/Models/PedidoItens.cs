@@ -8,7 +8,7 @@ namespace API.Models
     public class PedidoItens
         {
             public int Id { get; set; }
-            public Pedido Pedido { get; set; }
+            
             [Required]
             public int PedidoId { get; set; }
             public Produto Produto { get; set; }

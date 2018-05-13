@@ -7,13 +7,13 @@ namespace API.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class CriacaoCliente : IMigrationMetadata
+    public sealed partial class ApiModels : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(CriacaoCliente));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(ApiModels));
         
         string IMigrationMetadata.Id
         {
-            get { return "201805121335284_CriacaoCliente"; }
+            get { return "201805130333253_ApiModels"; }
         }
         
         string IMigrationMetadata.Source

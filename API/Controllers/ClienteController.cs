@@ -18,7 +18,7 @@ namespace API.Controllers
         {
             try
             {
-                var lista = _context.Clientes.ToList();
+                var lista = _context.Cliente.ToList();
                 return Request.CreateResponse(HttpStatusCode.OK, lista);
             }
             catch (DbEntityValidationException ex)
@@ -36,7 +36,7 @@ namespace API.Controllers
             cli.DataCadastro = DateTime.Now;
             try
             {
-                _context.Clientes.Add(cli);
+                _context.Cliente.Add(cli);
                 _context.SaveChanges();
             }
             catch (DbEntityValidationException ex)

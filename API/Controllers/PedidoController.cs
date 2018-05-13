@@ -12,10 +12,36 @@ namespace API.Controllers
     [Authorize]
     public class PedidoController : BaseController
     {
+
+        public HttpResponseMessage Get([FromUri] int id)
+        {
+            try
+            {
+                var pedido = _context.Pedido.Find(id);
+                if (pedido == null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.BadRequest, "Pedido não encontrado!");
+                }
+
+                var carrinho = _context.Carrinho.Find(pedido.CarrinhoId);
+                var cliente = _context.Cliente.Find(carrinho.ClienteId);
+                var itens = _context.PedidoItens.Where(x => x.PedidoId == pedido.Id).ToList();
+
+                return Request.CreateResponse(HttpStatusCode.OK, pedido);
+            }
+            catch (DbEntityValidationException ex)
+            {
+                HttpError err = new HttpError(ex.Message);
+                return Request.CreateResponse(HttpStatusCode.BadRequest, err);
+            }
+        }
+
+
+
         [HttpPost]
         public HttpResponseMessage Post([FromBody] Pedido pedido)
         {
-            var carrinho = _context.Carrinhos.Find(pedido.CarrinhoId);
+            var carrinho = _context.Carrinho.Find(pedido.CarrinhoId);
 
             if (carrinho == null)
             {
@@ -23,7 +49,7 @@ namespace API.Controllers
             }
 
 
-            var carrinhoItens = _context.CarrinhosItens.Where(x => x.CarrinhoId == pedido.CarrinhoId).ToList();
+            var carrinhoItens = _context.CarrinhoItens.Where(x => x.CarrinhoId == pedido.CarrinhoId).ToList();
 
             if (carrinhoItens.Count == 0)
             {
@@ -36,7 +62,7 @@ namespace API.Controllers
 
             try
             {
-                _context.Pedidos.Add(pedido);
+                _context.Pedido.Add(pedido);
 
                 foreach (var item in carrinhoItens)
                 {
@@ -48,7 +74,7 @@ namespace API.Controllers
                         ValorTotal  = item.ValorTotalItem,
                         ValorUnidade = item.ValorUnitario
                     };
-                    _context.PedidosItens.Add(pedidoitens);
+                    _context.PedidoItens.Add(pedidoitens);
                 }
 
                 _context.SaveChanges();

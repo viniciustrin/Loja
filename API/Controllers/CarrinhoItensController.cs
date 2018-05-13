@@ -8,19 +8,20 @@ using System.Web.Http;
 
 namespace API.Controllers
 {
+    [Authorize]
     public class CarrinhoItensController : BaseController
     {
         [HttpPost]
         public HttpResponseMessage Post([FromBody] CarrinhoItens item)
         {
-            var carrinho = _context.Carrinhos.Find(item.CarrinhoId);
+            var carrinho = _context.Carrinho.Find(item.CarrinhoId);
 
             if (carrinho == null)
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest, "Carrinho não existe!");
             }
 
-            var produto = _context.Produtos.Find(item.ProdutoId);
+            var produto = _context.Produto.Find(item.ProdutoId);
 
             if (produto == null)
             {
@@ -46,8 +47,8 @@ namespace API.Controllers
 
             try
             {
-                _context.CarrinhosItens.Add(carrinhoItens);
-                carrinho.AtualizaTotal(valor);
+                _context.CarrinhoItens.Add(carrinhoItens);
+                carrinho.AtualizaTotal(valor * item.Quantidade);
                 _context.SaveChanges();                
 
             }
