@@ -6,14 +6,8 @@ using System.Web.Mvc;
 
 namespace Site.Controllers
 {
-    public class CategoriaController : Controller
+    public class CategoriaController : BaseController
     {
-        private readonly ApplicationDbContext _context;
-        public CategoriaController()
-        {
-            _context = new ApplicationDbContext();
-        }
-
         [Authorize]
         public ActionResult Create()
         {

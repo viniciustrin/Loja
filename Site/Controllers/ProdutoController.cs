@@ -5,14 +5,8 @@ using System.Web.Mvc;
 
 namespace Site.Controllers
 {
-    public class ProdutoController : Controller
+    public class ProdutoController : BaseController
     {
-        private readonly ApplicationDbContext _context;
-        public ProdutoController()
-        {
-            _context = new ApplicationDbContext();
-        }
-
         [Authorize]
         public ActionResult Create()
         {

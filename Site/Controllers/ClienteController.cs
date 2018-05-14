@@ -6,14 +6,8 @@ using System.Web.Mvc;
 
 namespace Site.Controllers
 {
-    public class ClienteController : Controller
+    public class ClienteController : BaseController
     {
-        private readonly ApplicationDbContext _context;
-        public ClienteController()
-        {
-            _context = new ApplicationDbContext();
-        }
-
         [Authorize]
         public ActionResult Create()
         {
