@@ -20,7 +20,7 @@ namespace Site.Controllers
             var vm = new ProdutoViewModel
             {
                 Produtos = _context.Produto.ToList(),
-                Categorias = _context.Categoria.ToList(),
+                Categorias = _context.Categoria.Where(x => x.Ativo == true).ToList(),
                 Heading = "Adicionar Produto",
                 Botao = "Adicionar"
             };
@@ -36,7 +36,7 @@ namespace Site.Controllers
             if (!ModelState.IsValid)
             {
                 vm.Produtos = _context.Produto.ToList();
-                vm.Categorias = _context.Categoria.ToList();
+                vm.Categorias = _context.Categoria.Where(x => x.Ativo == true).ToList();
                 vm.Heading = "Adicionar Produto";
                 vm.Botao = "Adicionar";
                 return View(vm);
@@ -80,7 +80,7 @@ namespace Site.Controllers
                 Preco = produto.Preco,
                 PrecoPromo = produto.PrecoPromo,
                 CategoriaId = produtoCategoria == null ? 0 : produtoCategoria.CategoriaId,
-                Categorias = _context.Categoria.ToList(),
+                Categorias = _context.Categoria.Where(x => x.Ativo == true).ToList(),
                 Heading = "Editar Produto",
                 Botao = "Editar"
             };
@@ -96,7 +96,7 @@ namespace Site.Controllers
             if (!ModelState.IsValid)
             {
                 vm.Produtos = _context.Produto.ToList();
-                vm.Categorias = _context.Categoria.ToList();
+                vm.Categorias = _context.Categoria.Where(x => x.Ativo == true).ToList();
                 vm.Heading = "Editar Produto";
                 vm.Botao = "Editar";
                 return View("Create", vm);
@@ -108,6 +108,18 @@ namespace Site.Controllers
             produto.Desc = vm.Desc;
             produto.Preco = vm.Preco;
             produto.PrecoPromo = vm.PrecoPromo;
+
+            var produtoCategoria = _context.ProdutoCategoria.Where(x => x.ProdutoId == vm.Id).FirstOrDefault();
+
+            if (produtoCategoria == null)
+            {
+                produtoCategoria = new ProdutoCategoria
+                {
+                    CategoriaId = vm.CategoriaId,
+                    ProdutoId = produto.Id
+                };
+                _context.ProdutoCategoria.Add(produtoCategoria);
+            }            
 
             _context.SaveChanges();
             return RedirectToAction("Create", "Produto");
