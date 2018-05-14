@@ -77,6 +77,14 @@ namespace Site.Controllers
         [HttpPost]
         public ActionResult Update(CategoriaViewModel vm)
         {
+            if (!ModelState.IsValid)
+            {
+                vm.Categorias = _context.Categoria.ToList();
+                vm.Heading = "Editar Categoria";
+                vm.Botao = "Editar";
+                return View("Create", vm);
+            }
+
             var categoria = _context.Categoria.Single(x => x.Id == vm.Id);
 
             categoria.Nome = vm.Nome;

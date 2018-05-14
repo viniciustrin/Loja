@@ -77,6 +77,14 @@ namespace Site.Controllers
         [HttpPost]
         public ActionResult Update(ClienteViewModel vm)
         {
+            if (!ModelState.IsValid)
+            {
+                vm.Clientes = _context.Cliente.ToList();
+                vm.Heading = "Editar Cliente";
+                vm.Botao = "Editar";
+                return View("Create", vm);
+            }
+
             var cliente = _context.Cliente.Single(x => x.Id == vm.Id);
 
             cliente.Nome = vm.Nome;

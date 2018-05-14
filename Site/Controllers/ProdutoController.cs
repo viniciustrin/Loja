@@ -93,6 +93,14 @@ namespace Site.Controllers
         [HttpPost]
         public ActionResult Update(ProdutoViewModel vm)
         {
+            if (!ModelState.IsValid)
+            {
+                vm.Produtos = _context.Produto.ToList();
+                vm.Categorias = _context.Categoria.ToList();
+                vm.Heading = "Editar Produto";
+                vm.Botao = "Editar";
+                return View("Create", vm);
+            }
             var produto = _context.Produto.Single(x => x.Id == vm.Id);
 
             produto.Nome = vm.Nome;
