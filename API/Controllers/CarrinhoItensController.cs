@@ -153,5 +153,48 @@ namespace API.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, carrinhoItens);
         }
+
+        [HttpDelete]
+        public HttpResponseMessage Delete([FromUri] int id)
+        {
+            var carrinhoItens = _context.CarrinhoItens.Where(x => x.Id == id).FirstOrDefault();
+
+            if (carrinhoItens == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Produto não existe no carrinho!");
+            }
+
+            var carrinho = _context.Carrinho.Find(carrinhoItens.CarrinhoId);
+
+            if (carrinho == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Carrinho não existe!");
+            }
+
+            carrinho.AtualizaTotal(-carrinhoItens.ValorTotalItem);
+
+            try
+            {
+                _context.CarrinhoItens.Remove(carrinhoItens);
+                _context.SaveChanges();
+
+            }
+            catch (DbEntityValidationException ex)
+            {
+                List<string> validationErrors = new List<string>();
+
+                foreach (var failure in ex.EntityValidationErrors)
+                {
+
+                    foreach (var error in failure.ValidationErrors)
+                    {
+                        validationErrors.Add(error.ErrorMessage);
+                    }
+                }
+
+                return Request.CreateResponse(HttpStatusCode.BadRequest, validationErrors);
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, carrinhoItens);
+        }
     }
 }
